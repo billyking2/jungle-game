@@ -9,7 +9,7 @@ public class move {
     private String player_name;
     private String result;
 
-    public void undo(map game_map) {
+    public move undo(map game_map,String player_name,int round) {
 
         game_map.setChess(toRow, toCol, null);
         game_map.setChess(fromRow, fromCol, moved_chess);
@@ -21,6 +21,8 @@ public class move {
             captured_chess.setRow(toRow);
             captured_chess.setColumn(toCol);
         }
+
+        return new move (moved_chess, captured_chess, fromRow, fromCol, toRow, toCol,round,player_name,"redo");
     }
 
     public String record_success() {

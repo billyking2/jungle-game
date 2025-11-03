@@ -187,8 +187,9 @@ public class game_control {
 
         if (tbc_stack.size() >= 2) {
             move tbc=tbc_stack.pop();
-            tbc.undo(game_map);
-            tbc_stack.pop().undo(game_map);
+            tbc.undo(game_map,playerNames[currentPlayer-1],round_counter);
+            tbc=tbc_stack.pop();
+            tbc.undo(game_map,playerNames[currentPlayer-1],round_counter);
 
             take_back_counter[currentPlayer-1] = take_back_counter[currentPlayer-1] + 1;
             gameDisplay.display_map();
