@@ -100,7 +100,7 @@ public class map {
         return null;
     }
 
-
+    //check if there are any other players' pieces on the map.
     public boolean getChess_by_player(int player){
         for (int y = 0; y < Rows; y++) {
             for (int x = 0; x < Columns; x++) {
@@ -113,6 +113,7 @@ public class map {
         }
         return false;
     }
+
 
     public boolean check_boundary(int rows, int columns) {
         return rows >= 0 && rows < Rows && columns >= 0 && columns < Columns;

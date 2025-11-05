@@ -41,10 +41,16 @@ public class player_name {
         return playerNames;
     }
 
-    public static String random_name(){
-        byte[] array = new byte[5];
-        new Random().nextBytes(array);
-        return new String(array, StandardCharsets.UTF_8);
+    public static String random_name() {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        StringBuilder random_player_name = new StringBuilder();
+
+        for (int i = 0; i < 5; i++) {
+            random_player_name.append(characters.charAt(random.nextInt(characters.length())));
+        }
+
+        return random_player_name.toString();
     }
 }
 

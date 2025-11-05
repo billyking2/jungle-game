@@ -32,18 +32,19 @@ public class Chess {
         return -1;
     }
 
+    //check the condition of capture
     public boolean capture(Chess target_chess){
-
+        //same player's chess
         if (Objects.equals(this.getPlayer(), target_chess.getPlayer())){
             System.out.println("error: you can not capture your chess");
             return false;
         }
-
+        //rat can capture elephant
         if(getrank(this.getType()) == 1 && getrank(target_chess.getType())==8){
             System.out.println("your chess "+this.getType()+" success capture "+target_chess.getType());
             return true;
         }
-
+        //check the rank
         if (getrank(this.getType()) >= getrank(target_chess.getType())) {
             System.out.println("your chess " + this.getType() + " success capture " + target_chess.getType());
             return true;

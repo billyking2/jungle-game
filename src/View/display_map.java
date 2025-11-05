@@ -56,6 +56,7 @@ public class display_map {
         System.out.println(separator_line);
     }
 
+    //change the name from en to cn
     private String trans_chess(String type) {
         switch (type.toLowerCase()) {
             case "elephant": return "象";
@@ -70,6 +71,7 @@ public class display_map {
         }
     }
 
+    //add the colour for display
     public String colour_chess(String transed_chess, int player){
         if (player == 1){
             return RED+transed_chess+RESET;

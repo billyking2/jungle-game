@@ -9,6 +9,7 @@ public class move {
     private String player_name;
     private String result;
 
+    //update the map and chess for take back
     public move undo(map game_map,String player_name,int round) {
 
         game_map.setChess(toRow, toCol, null);
@@ -21,37 +22,21 @@ public class move {
             captured_chess.setRow(toRow);
             captured_chess.setColumn(toCol);
         }
-
-        return new move (moved_chess, captured_chess, fromRow, fromCol, toRow, toCol,round,player_name,"redo");
+        return new move (moved_chess, captured_chess, toRow, toCol, fromRow, fromCol,round,player_name,"undo");
     }
 
+    //return a String for record or jungle file
     public String record_success() {
         if (captured_chess != null) {
-            return String.format("Round %d, player %s, moved %s, from %d%d, to %d%d, captured %s, result %s",
+            return String.format("Round %d, player %s, moved %s, from %d%d, to %d%d, captured %s, result %s,",
                     round, player_name, moved_chess.getType(), fromRow, fromCol, toRow, toCol,
                     captured_chess.getType(), result);
         } else {
-            return String.format("Round %d, player %s, moved %s, from %d%d, to %d%d, captured null, result %s",
+            return String.format("Round %d, player %s, moved %s, from %d%d, to %d%d, captured null, result %s,",
                     round, player_name, moved_chess.getType(), fromRow, fromCol, toRow, toCol, result);
         }
     }
 
-
-
-    @Override
-    public String toString() {
-        return "move{" +
-                "moved_chess=" + moved_chess +
-                ", captured_chess=" + captured_chess +
-                ", fromRow=" + fromRow +
-                ", fromCol=" + fromCol +
-                ", toRow=" + toRow +
-                ", toCol=" + toCol +
-                ", round=" + round +
-                ", player_name='" + player_name + '\'' +
-                ", result='" + result + '\'' +
-                '}';
-    }
 
     public Chess getMoved_chess() {
         return moved_chess;
