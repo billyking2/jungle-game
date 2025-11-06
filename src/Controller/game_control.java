@@ -35,10 +35,10 @@ public class game_control {
         this.jungle_list = new ArrayList<>();
     }
 
-    public void continue_game(display_jungle display_jungle, Scanner scanner, String file_name) throws IOException, InterruptedException {
-        game_file jungle_manager = new game_file(file_name, game_file.FileType.JUNGLE);
+    public void continue_game( Scanner scanner, String jungle_file_name) throws IOException, InterruptedException {
+        game_file jungle_manager = new game_file(jungle_file_name, game_file.FileType.JUNGLE);
         // Use display_jungle to load and set up the game state
-        display_jungle jungleDisplay = loadGameState(file_name);
+        display_jungle jungleDisplay = loadGameState(jungle_file_name);
 
         // Copy the loaded state to game_control
         this.game_map = jungleDisplay.getGame_map();
@@ -66,8 +66,9 @@ public class game_control {
 
         System.out.println("Game loaded successfully! Continuing from round " + round_counter);
 
+        String record_name= display_interactive.setup_recording(scanner);
         // Continue the game
-        startGame(player_name, scanner, null);
+        startGame(player_name, scanner, record_name, jungle_file_name,true);
 
     }
     private void rebuildStacks(List<move> moves) {
@@ -103,10 +104,13 @@ public class game_control {
         return jungleDisplay;
     }
 
-    public void startGame(String[] player_name, Scanner scanner , String record_name) throws IOException {
+    public void startGame(String[] player_name, Scanner scanner , String record_name,String jungle_file_name, boolean continue_record) throws IOException {
         game_file recorder=null;
-        if (record_name != null){
+        if (record_name != null && !continue_record){
             recorder =  new game_file(player_name[0], player_name[1], record_name, game_file.FileType.RECORD, take_back_counter);
+        }
+        else if(record_name!=null && continue_record && jungle_file_name !=null){
+            recorder = game_file.create_record_from_jungle( jungle_file_name , record_name);
         }
 
         gameDisplay.display_map();

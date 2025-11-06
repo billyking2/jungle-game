@@ -131,9 +131,7 @@ public class game_file {
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("Round")) {
                     move move = read_line(line);
-                    if (move != null) {
-                        loadedMoves.add(move);
-                    }
+                    loadedMoves.add(move);
                 }
             }
         }

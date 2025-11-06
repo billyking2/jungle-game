@@ -19,7 +19,7 @@ public class Main {
             game_control gameController = new game_control();
 
             String record_name = display_interactive.setup_recording(scanner);
-                gameController.startGame(playerNames, scanner , record_name);
+                gameController.startGame(playerNames, scanner , record_name, null,false);
 
         }
 
@@ -29,7 +29,7 @@ public class Main {
             game_control gameController = new game_control();
             display_jungle display_jungler=display_jungle.start_jungle(jungle_file);
 
-            gameController.continue_game(display_jungler,scanner,jungle_file);
+            gameController.continue_game(scanner,jungle_file);
         }
 
         if(choice.equals("3")){
