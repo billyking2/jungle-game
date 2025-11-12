@@ -1,6 +1,6 @@
 package View;
 import Model.map;
-import Model.Chess;
+import Model.chess;
 
 public class display_map {
     public static final String RED = "\u001B[31m";
@@ -28,7 +28,7 @@ public class display_map {
             System.out.print(string_line);
 
             for (int col = 0; col < 7; col++) {
-                Chess chess = game_map.getChess(row, col);
+                chess chess = game_map.getChess(row, col);
                 String cell ;
 
             if (chess != null){

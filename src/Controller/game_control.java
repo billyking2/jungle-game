@@ -1,7 +1,7 @@
 package Controller;
 
 import Model.map;
-import Model.Chess;
+import Model.chess;
 import Model.move;
 import View.display_jungle;
 import View.display_map;
@@ -78,8 +78,8 @@ public class game_control {
         // rebuild stacks from loaded moves
         for (move m : moves) {
             // set the chess pieces using the current game board
-            Chess movedChess = this.game_map.getChess(m.getFromRow(), m.getFromCol());
-            Chess capturedChess = this.game_map.getChess(m.getToRow(), m.getToCol());
+            chess movedChess = this.game_map.getChess(m.getFromRow(), m.getFromCol());
+            chess capturedChess = this.game_map.getChess(m.getToRow(), m.getToCol());
 
             m.setMoved_chess(movedChess);
             m.setCaptured_chess(capturedChess);
@@ -165,7 +165,7 @@ public class game_control {
                 continue ;
             }
 
-            Chess c_chess = game_map.getChess_by_name(chess_input, currentPlayer);
+            chess c_chess = game_map.getChess_by_name(chess_input, currentPlayer);
 
             if (c_chess != null) {
                 // choose move
@@ -184,7 +184,7 @@ public class game_control {
                     int[] target_location = calculate_move(c_chess.getRow(), c_chess.getColumn(), move_input);
                     if (target_location != null) {
 
-                        Chess captured_chess = game_map.getChess(target_location[0], target_location[1]);
+                        chess captured_chess = game_map.getChess(target_location[0], target_location[1]);
                         int c_row = c_chess.getRow();
                         int c_col = c_chess.getColumn();
 
@@ -229,12 +229,12 @@ public class game_control {
 
     private boolean check_win_condition() {
         //player 1 go to den
-        Chess player1AtDen = game_map.getChess(8, 3);
+        chess player1AtDen = game_map.getChess(8, 3);
         if (player1AtDen != null && player1AtDen.getPlayer() == 1) {
             return true;
         }
         // player 2 go to den
-        Chess player2AtDen = game_map.getChess(0, 3);
+        chess player2AtDen = game_map.getChess(0, 3);
         if (player2AtDen != null && player2AtDen.getPlayer() == 2) {
             return true;
         }

@@ -1,6 +1,6 @@
 package View;
 import Model.map;
-import Model.Chess;
+import Model.chess;
 
 import java.util.*;
 
@@ -58,7 +58,7 @@ public class display_interactive {
         //get all the chess from map
         for (int row = 0; row < 9; row++) {
             for (int col = 0; col < 7; col++) {
-                Chess chess = gameMap.getChess(row, col);
+                chess chess = gameMap.getChess(row, col);
                 //Classification the class to player
                 if (chess != null) {
                     switch (chess.getPlayer()) {

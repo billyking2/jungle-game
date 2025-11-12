@@ -1,5 +1,5 @@
 package Controller;
-import Model.Chess;
+import Model.chess;
 import Model.map;
 
 public class movement {
@@ -10,10 +10,10 @@ public class movement {
         }
 
 
-        public boolean check_target_location(Chess chess, int row, int column){
+        public boolean check_target_location(chess chess, int row, int column){
                 int c_row = chess.getRow();
                 int c_column = chess.getColumn();
-                Chess target_chess = game_map.getChess(row,column);
+                Model.chess target_chess = game_map.getChess(row,column);
 
                 //check boundary
                 if (!game_map.check_boundary(row, column)) {
@@ -93,7 +93,7 @@ public class movement {
         }
 
         // update the map and chess
-        public void update_map_after_move(Chess chess, int t_row, int t_column){
+        public void update_map_after_move(chess chess, int t_row, int t_column){
                 game_map.setChess(t_row, t_column, chess);
                 game_map.setChess(chess.getRow(), chess.getColumn(), null);
                 chess.setRow(t_row);
@@ -101,7 +101,7 @@ public class movement {
         }
 
         // check lion and tiger can jump over the river
-        public boolean check_jump_over(Chess start_chess, int c_row,int c_col, int t_row,int t_col){
+        public boolean check_jump_over(chess start_chess, int c_row, int c_col, int t_row, int t_col){
                 //jump hor
                 int end_location;
                 int target_row;
@@ -115,7 +115,7 @@ public class movement {
                         }
                         
                         int start_location= Math.min(c_row,end_location);
-                        Chess target_Chess = game_map.getChess(c_row, end_location);
+                        chess target_chess = game_map.getChess(c_row, end_location);
 
                         //check there is a rat on any of the intervening water squares.
                         while (start_location+1 < end_location) {
@@ -127,8 +127,8 @@ public class movement {
                         }
 
                         //check capture enemy pieces by such jumping moves.
-                        if (target_Chess != null) {
-                                if ( start_chess.capture(target_Chess)){
+                        if (target_chess != null) {
+                                if ( start_chess.capture(target_chess)){
                                         update_map_after_move(start_chess,t_row,end_location);
                                         return true;
                                 }
@@ -151,7 +151,7 @@ public class movement {
                         }
 
                         int start_location= Math.min(c_row,end_location);
-                        Chess target_Chess = game_map.getChess(end_location, t_col);
+                        chess target_chess = game_map.getChess(end_location, t_col);
 
                         while (start_location+1 < end_location) {
                                 if (game_map.getChess(start_location+1, c_col) != null) {
@@ -160,8 +160,8 @@ public class movement {
                                 }
                                 start_location++;
                         }
-                        if (target_Chess != null) {
-                                if (start_chess.capture(target_Chess)){
+                        if (target_chess != null) {
+                                if (start_chess.capture(target_chess)){
                                         update_map_after_move(start_chess,end_location,t_col);
                                         return true;
                                 }

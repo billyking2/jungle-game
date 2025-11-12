@@ -2,7 +2,7 @@ package Model;
 
 import java.util.Objects;
 
-public class Chess {
+public class chess {
     private String type;
     private Integer player;
     private Integer row;
@@ -33,7 +33,7 @@ public class Chess {
     }
 
     //check the condition of capture
-    public boolean capture(Chess target_chess){
+    public boolean capture(chess target_chess){
         //same player's chess
         if (Objects.equals(this.getPlayer(), target_chess.getPlayer())){
             System.out.println("error: you can not capture your chess");
@@ -57,7 +57,7 @@ public class Chess {
     }
 
 
-    public Chess(String type, Integer player, Integer row, Integer column) {
+    public chess(String type, Integer player, Integer row, Integer column) {
         this.type = type;
         this.player = player;
         this.row = row;
@@ -108,6 +108,6 @@ public class Chess {
 
 
 
-    public Chess() {
+    public chess() {
     }
 }

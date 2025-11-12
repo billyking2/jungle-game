@@ -1,8 +1,8 @@
 package Model;
 
 public class move {
-    private Chess moved_chess;
-    private Chess captured_chess;
+    private chess moved_chess;
+    private chess captured_chess;
     private int fromRow, fromCol;
     private int toRow, toCol;
     private int round;
@@ -38,19 +38,19 @@ public class move {
     }
 
 
-    public Chess getMoved_chess() {
+    public chess getMoved_chess() {
         return moved_chess;
     }
 
-    public void setMoved_chess(Chess moved_chess) {
+    public void setMoved_chess(chess moved_chess) {
         this.moved_chess = moved_chess;
     }
 
-    public Chess getCaptured_chess() {
+    public chess getCaptured_chess() {
         return captured_chess;
     }
 
-    public void setCaptured_chess(Chess captured_chess) {
+    public void setCaptured_chess(chess captured_chess) {
         this.captured_chess = captured_chess;
     }
 
@@ -113,7 +113,7 @@ public class move {
     public move() {
     }
 
-    public move(Chess moved_chess, Chess captured_chess, int fromRow, int fromCol, int toRow, int toCol, int round, String player_name, String result) {
+    public move(chess moved_chess, chess captured_chess, int fromRow, int fromCol, int toRow, int toCol, int round, String player_name, String result) {
         this.moved_chess = moved_chess;
         this.captured_chess = captured_chess;
         this.fromRow = fromRow;
