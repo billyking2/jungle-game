@@ -104,7 +104,6 @@ public class movement {
         public boolean check_jump_over(chess start_chess, int c_row, int c_col, int t_row, int t_col){
                 //jump hor
                 int end_location;
-                int target_row;
                 if (c_row == t_row ){
                         //change the target location become other side of river
                         if (c_col > t_col){
@@ -114,16 +113,16 @@ public class movement {
                                  end_location = t_col+2;
                         }
                         
-                        int start_location= Math.min(c_row,end_location);
+                        int start_location= Math.min(c_col,end_location)+1;
                         chess target_chess = game_map.getChess(c_row, end_location);
 
                         //check there is a rat on any of the intervening water squares.
-                        while (start_location+1 < end_location) {
-                                if (game_map.getChess(c_row, start_location + 1) != null) {
+                        while (start_location < end_location) {
+                                if (game_map.getChess(c_row, start_location ) != null) {
                                         System.out.println("there are a rat on the river");
                                         return false;
                                 }
-                                start_location++;
+                                start_location=start_location+1;
                         }
 
                         //check capture enemy pieces by such jumping moves.
@@ -133,6 +132,7 @@ public class movement {
                                         return true;
                                 }
                                 else {
+                                        System.out.println("river cap fail ");
                                         return false;
                                 }
                         }
@@ -150,22 +150,25 @@ public class movement {
                                 end_location = t_row+3;
                         }
 
-                        int start_location= Math.min(c_row,end_location);
+                        int start_location= Math.min(c_row,end_location)+1;
                         chess target_chess = game_map.getChess(end_location, t_col);
 
-                        while (start_location+1 < end_location) {
-                                if (game_map.getChess(start_location+1, c_col) != null) {
+                        while (start_location < end_location) {
+                                if (game_map.getChess(start_location, c_col) != null) {
                                         System.out.println("there are a rat on the river");
                                         return false;
                                 }
-                                start_location++;
+                                start_location=start_location+1;
                         }
                         if (target_chess != null) {
                                 if (start_chess.capture(target_chess)){
                                         update_map_after_move(start_chess,end_location,t_col);
+                                        System.out.println("river capture");
                                         return true;
+
                                 }
                                 else {
+                                        System.out.println("river cap fail");
                                         return false;
                                 }
                         }
