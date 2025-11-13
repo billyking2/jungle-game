@@ -28,7 +28,7 @@ public class game_file {
         this.moves = new ArrayList<>();
         this.fileType = fileType;
         this.enabled = true;
-        this.takeBackCounters = takeBackCounters != null ? takeBackCounters : new int[]{0, 0};
+        this.takeBackCounters = takeBackCounters;
 
         if (fileName != null && !fileName.trim().isEmpty()) {
             this.currentFile = create_file(fileName, fileType);
@@ -42,6 +42,7 @@ public class game_file {
 
     public game_file(String fileName, FileType fileType) throws IOException {
         this.fileType = fileType;
+        this.takeBackCounters=new int[2];
         read_file(fileName);
     }
 
