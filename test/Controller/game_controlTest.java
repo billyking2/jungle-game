@@ -1,24 +1,45 @@
 package Controller;
 
 import org.junit.jupiter.api.Test;
-
+import java.io.ByteArrayInputStream;
+import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.*;
 
-class game_controlTest {
+class player_nameTest {
 
     @Test
-    void continue_game() {
+    void setupPlayerNamesByDefault() {
+        String userInput = "1\n";
+        ByteArrayInputStream userKeyboard = new ByteArrayInputStream(userInput.getBytes());
+        Scanner scanner = new Scanner(userKeyboard);
+        player_name.setupPlayerNames(scanner);
     }
 
     @Test
-    void startGame() {
+    void setupPlayerNamesByRandom() {
+        String userInput = "2\n";
+        ByteArrayInputStream userKeyboard = new ByteArrayInputStream(userInput.getBytes());
+        Scanner scanner = new Scanner(userKeyboard);
+        player_name.setupPlayerNames(scanner);
     }
 
     @Test
-    void ask_save_file() {
+    void setupPlayerNamesByPlayer() {
+        String userInput = "3\nPLAYER111\nPLAYER222";
+        ByteArrayInputStream userKeyboard = new ByteArrayInputStream(userInput.getBytes());
+        Scanner scanner = new Scanner(userKeyboard);
+        player_name.setupPlayerNames(scanner);
     }
 
     @Test
-    void process_input() {
+    void setupPlayerNamesByDefaultWithWrongInput() {
+        String userInput = "wrongInput\n1\n";
+        ByteArrayInputStream userKeyboard = new ByteArrayInputStream(userInput.getBytes());
+        Scanner scanner = new Scanner(userKeyboard);
+        player_name.setupPlayerNames(scanner);
+    }
+
+    @Test
+    void random_name() {
     }
 }
