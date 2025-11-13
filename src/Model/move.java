@@ -27,13 +27,14 @@ public class move {
 
     //return a String for record or jungle file
     public String record_success() {
+        String moved_type = (moved_chess != null) ? moved_chess.getType() : "unknown";
         if (captured_chess != null) {
             return String.format("Round %d, player %s, moved %s, from %d%d, to %d%d, captured %s, result %s,",
-                    round, player_name, moved_chess.getType(), fromRow, fromCol, toRow, toCol,
+                    round, player_name, moved_type, fromRow, fromCol, toRow, toCol,
                     captured_chess.getType(), result);
         } else {
             return String.format("Round %d, player %s, moved %s, from %d%d, to %d%d, captured null, result %s,",
-                    round, player_name, moved_chess.getType(), fromRow, fromCol, toRow, toCol, result);
+                    round, player_name, moved_type, fromRow, fromCol, toRow, toCol, result);
         }
     }
 

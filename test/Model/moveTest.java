@@ -48,8 +48,6 @@ class moveTest {
         myMove.setResult("success");
         myMove.getResult();
 
-
-
     }
 
     @Test

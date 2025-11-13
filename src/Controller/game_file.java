@@ -46,7 +46,7 @@ public class game_file {
         read_file(fileName);
     }
 
-    // create die or file with type
+    // create dir or file with type
     private File create_file(String fileName, FileType type) throws IOException {
         String dirName = type == FileType.JUNGLE ? "jungle" : "record";
         String extension = type == FileType.JUNGLE ? ".jungle" : ".record";
@@ -241,6 +241,5 @@ public class game_file {
     public String getPlayer1_name() { return player1_name; }
     public String getPlayer2_name() { return player2_name; }
     public int[] getTakeBackCounters() { return takeBackCounters; }
-    public boolean isEnabled() { return enabled; }
     public FileType getFileType() { return fileType; }
 }
