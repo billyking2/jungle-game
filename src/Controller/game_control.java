@@ -51,7 +51,7 @@ public class game_control {
         List<move> allMoves = jungle_manager.get_moves();
 
         if (!allMoves.isEmpty()) {
-            move latestMove = allMoves.get(allMoves.size() - 1);
+            move latestMove = allMoves.getLast();
 
             if(latestMove.getResult().equals("undo") || latestMove.getResult().equals(" undo")){
                 this.currentPlayer = (latestMove.getRound() % 2);
@@ -134,7 +134,7 @@ public class game_control {
                     System.out.println("Do you want to save this game ?(yes/no)");
                     String save_choice=scanner.nextLine().trim();
                     if(save_choice.equalsIgnoreCase("yes")){
-                        ask_save_jungle(scanner, player_name);
+                        ask_save_file(scanner, player_name, game_file.FileType.RECORD);
                     }
                     break;
                 }
@@ -286,13 +286,13 @@ public class game_control {
         }
     }
 
-    public void ask_save_jungle( Scanner scanner , String[] player_name) throws IOException {
-        //ask jungle file name
-        System.out.println("Please enter jungle file name");
-        String jungle_file_name = scanner.nextLine().trim();
-        game_file jungle_file = new game_file(player_name[0], player_name[1], jungle_file_name, game_file.FileType.JUNGLE, take_back_counter);
+    public void ask_save_file( Scanner scanner , String[] player_name, game_file.FileType fileType) throws IOException {
+        //ask file name
+        System.out.println("Please enter file name");
+        String file_name = scanner.nextLine().trim();
+        game_file jungle_file = new game_file(player_name[0], player_name[1], file_name, fileType, take_back_counter);
 
-        // write move to jungle file
+        // write move to file
         for (move m : jungle_list) {
             jungle_file.record_move(m);
         }
@@ -317,7 +317,7 @@ public class game_control {
             return 1;
         }
         else if (input.equalsIgnoreCase("save")){
-            ask_save_jungle(scanner,player_name);
+            ask_save_file(scanner,player_name, game_file.FileType.JUNGLE);
             System.exit(0);
         }
 
