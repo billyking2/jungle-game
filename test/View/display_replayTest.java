@@ -27,6 +27,16 @@ class display_replayTest {
         myDisplayMap = new display_map(myMap);
         movesReplay = new ArrayList<move>();
 
+        // Create sample moves for testing
+        chess chess1 = new chess("wolf", 1, 2, 4);
+        move move1 = new move(chess1, null, 2, 4, 1, 4, 1, "tester1", "success");
+        movesReplay.add(move1);
+
+        chess chess2 = new chess("wolf", 2, 6, 2);
+        move move2 = new move(chess2, null, 6, 2, 7, 2, 2, "tester2", "success");
+        movesReplay.add(move2);
+
+        myDisplayReplay = new display_replay(myMap, myDisplayMap);
     }
 
     @Test
@@ -59,16 +69,22 @@ class display_replayTest {
 
     @Test
     void replay_game() throws InterruptedException {
+        myDisplayReplay.replay_game(movesReplay);
 
-    }
-
-    @Test
-     void update_move() {
-
+        // Verify the replay completed without exceptions
+        assertNotNull(myDisplayReplay);
+        assertEquals(2, movesReplay.size());
     }
 
     @Test
     void display_record_line() {
+        move testMove = movesReplay.get(0);
+        String recordLine = myDisplayReplay.display_record_line(testMove);
 
+        assertNotNull(recordLine);
+        assertTrue(recordLine.contains("Round 1"));
+        assertTrue(recordLine.contains("tester1"));
+        assertTrue(recordLine.contains("wolf"));
+        assertTrue(recordLine.contains("success"));
     }
 }
