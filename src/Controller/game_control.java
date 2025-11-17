@@ -53,7 +53,7 @@ public class game_control {
         if (!allMoves.isEmpty()) {
             move latestMove = allMoves.getLast();
 
-            if(latestMove.getResult().equals("undo") || latestMove.getResult().equals(" undo")) {
+            if(latestMove.getResult().equals("undo")) {
                 if (latestMove.getRound() % 2 == 0) {
                     this.currentPlayer = 1;
                 } else {
