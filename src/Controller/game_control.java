@@ -54,10 +54,10 @@ public class game_control {
             move latestMove = allMoves.getLast();
 
             if(latestMove.getResult().equals("undo") || latestMove.getResult().equals(" undo")){
-                this.currentPlayer = (latestMove.getRound() % 2);
+                if (latestMove.getRound() % 2 == 0 ) this.currentPlayer = 1;
             }
                 else {
-                this.currentPlayer = (latestMove.getRound() % 2) + 1;
+                this.currentPlayer = 2;
             }
             this.round_counter = latestMove.getRound() + 1;
         }
