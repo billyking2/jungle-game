@@ -26,7 +26,6 @@ class game_fileTest {
     @BeforeEach
     void setUp() throws IOException {
         System.setProperty("user.dir", tempDir.toString());
-
     }
 
     private String getUniqueFileName() {

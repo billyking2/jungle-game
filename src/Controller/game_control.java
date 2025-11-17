@@ -54,10 +54,10 @@ public class game_control {
             move latestMove = allMoves.getLast();
 
             if(latestMove.getResult().equals("undo") || latestMove.getResult().equals(" undo")){
-                this.currentPlayer = (latestMove.getRound() % 2);
+                if (latestMove.getRound() % 2 == 0 ) this.currentPlayer = 1;
             }
                 else {
-                this.currentPlayer = (latestMove.getRound() % 2) + 1;
+                this.currentPlayer = 2;
             }
             this.round_counter = latestMove.getRound() + 1;
         }
@@ -118,6 +118,7 @@ public class game_control {
 
         while (true) {
             // Display current player
+
             System.out.println(" player " + player_name[currentPlayer - 1] + " round ");
 
             boolean move_made = processPlayerTurn(player_name, scanner, recorder );
@@ -286,17 +287,35 @@ public class game_control {
         }
     }
 
-    public void ask_save_file( Scanner scanner , String[] player_name, game_file.FileType fileType) throws IOException {
-        //ask file name
-        System.out.println("Please enter file name");
-        String file_name = scanner.nextLine().trim();
-        game_file jungle_file = new game_file(player_name[0], player_name[1], file_name, fileType, take_back_counter);
+    public void ask_save_file(Scanner scanner, String[] player_name, game_file.FileType fileType) throws IOException {
+        boolean fileCreated = false;
+        String file_name = "";
 
-        // write move to file
-        for (move m : jungle_list) {
-            jungle_file.record_move(m);
+        while (!fileCreated) {
+            try {
+                //ask file name
+                System.out.println("Please enter file name");
+                file_name = scanner.nextLine().trim();
+
+                game_file jungle_file = new game_file(player_name[0], player_name[1], file_name, fileType, take_back_counter);
+
+                // write move to file
+                for (move m : jungle_list) {
+                    jungle_file.record_move(m);
+                }
+
+                fileCreated = true;
+                System.out.println("Game saved successfully!");
+
+            } catch (IOException e) {
+                if (e.getMessage().contains("already exists")) {
+                    System.out.println("File '" + file_name + "' already exists ");
+                } else {
+                    // Re-throw other IO exceptions
+                    throw e;
+                }
+            }
         }
-        System.out.println("Game saved successfully!");
     }
 
     public int process_input(String input, String[] player_name,Scanner scanner, int choice, game_file recorder) throws IOException {

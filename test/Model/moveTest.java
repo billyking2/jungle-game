@@ -23,11 +23,11 @@ class moveTest {
     void setup(){
         myMap = new map();
         myMove = new move();
-        //assume player 1 lion (0,1 -> 0,0) eat player 2 tiger (0,0)
-        myMove.setMoved_chess(myMap.getChess(0,0)); //set it to lion, player 1
-        myMove.setCaptured_chess(myMap.getChess(0,6)); //set it to tiger, player 2
 
-        myMap.setChess(0,6,null); //assume lion eat tiger from (0,0 to 0,1)
+        myMove.setMoved_chess(myMap.getChess(0,0));
+        myMove.setCaptured_chess(myMap.getChess(0,6));
+
+        myMap.setChess(0,6,null);
 
         myMove.getMoved_chess(); //get the moved chess
         myMove.getCaptured_chess(); //get captured chess

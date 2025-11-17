@@ -55,6 +55,12 @@ public class display_replay {
         }
 
         private void update_move(move moves) {
+            // Update the chess piece's internal coordinates
+            if (moves.getMoved_chess() != null) {
+                moves.getMoved_chess().setRow(moves.getToRow());
+                moves.getMoved_chess().setColumn(moves.getToCol());
+            }
+
             game_map.setChess(moves.getToRow(), moves.getToCol(), moves.getMoved_chess());
             game_map.setChess(moves.getFromRow(), moves.getFromCol(), null);
         }
