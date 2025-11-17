@@ -55,13 +55,9 @@ class display_replayTest {
                 game_file.FileType.RECORD, new int[]{2, 3});
 
 
-        chess chess1 = new chess("wolf", 1, 2, 4);
-        move move1 = new move(chess1, null, 2, 4, 1, 4, 1, "tester1", "success");
-        gameFile.record_move(move1);
-
-        chess chess2 = new chess("wolf", 2, 6, 2);
-        move move2 = new move(chess2, null, 6, 2, 7, 2, 2, "tester2", "success");
-        gameFile.record_move(move2);
+        for (move moves : movesReplay ) {
+            gameFile.record_move(moves);
+        }
 
         display_replay.start_replay(record_file_name);
 
