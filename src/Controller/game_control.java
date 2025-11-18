@@ -123,6 +123,13 @@ public class game_control {
 
             boolean move_made = processPlayerTurn(player_name, scanner, recorder );
 
+
+
+            if (!move_made) {
+                // Check if this was due to an exit request
+                System.out.println("Game ended by user.");
+                break;
+            }
             // Display updated board
             if (move_made) {
                 System.out.println("success move, updated map :");
@@ -166,7 +173,9 @@ public class game_control {
             if (process_input_result == 1 || process_input_result == 3 ){
                 continue ;
             }
-
+            if (process_input_result == -100 ){
+                return false;
+            }
             chess c_chess = game_map.getChess_by_name(chess_input, currentPlayer);
 
             if (c_chess != null) {
@@ -322,7 +331,7 @@ public class game_control {
     public int process_input(String input, String[] player_name,Scanner scanner, int choice, game_file recorder) throws IOException {
         if (input.equalsIgnoreCase("exit")) {
             System.out.println("Game end without saving !");
-            System.exit(0);
+            return -100;
         }
         else if (input.equalsIgnoreCase("help")) {
             display_interactive.display_help();
