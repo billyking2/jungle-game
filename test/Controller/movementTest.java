@@ -300,4 +300,13 @@ class movementTest {
         assertTrue(mover.check_jump_over(lionEmptyDest, 6, 1, 5, 1));
     }
 
+    @Test
+    void check_jump_over_12() {
+        // Test jump over river with empty destination
+        chess wolf = new chess("wolf", 1, 6, 1);
+        gameMap.setChess(6, 1, wolf);
+        chess lion= new chess("lion",2,2,1);
+        gameMap.setChess(2, 1, lion);
+        assertTrue(mover.check_jump_over(wolf, 6, 1, 5, 1));
+    }
 }
