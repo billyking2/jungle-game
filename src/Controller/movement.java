@@ -112,7 +112,7 @@ public class movement {
                         else {
                                  end_location = t_col+2;
                         }
-                        
+                        System.out.println("end location "+end_location );
                         int start_location= Math.min(c_col,end_location)+1;
                         chess target_chess = game_map.getChess(c_row, end_location);
 
@@ -149,7 +149,7 @@ public class movement {
                         else {
                                 end_location = t_row+3;
                         }
-
+                        System.out.println("end location "+end_location );
                         int start_location= Math.min(c_row,end_location)+1;
                         chess target_chess = game_map.getChess(end_location, t_col);
 
@@ -168,7 +168,7 @@ public class movement {
 
                                 }
                                 else {
-                                        System.out.println("river cap fail");
+                                        System.out.println("river capture fail");
                                         return false;
                                 }
                         }

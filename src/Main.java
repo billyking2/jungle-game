@@ -13,6 +13,7 @@ public class Main {
         display_interactive.display_game_menu();
         String choice = scanner.nextLine().trim();
 
+
         if (choice.equals("1")) {
             String[] playerNames = player_name.setupPlayerNames(scanner);
 
