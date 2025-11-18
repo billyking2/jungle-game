@@ -53,22 +53,22 @@ public class game_control {
         if (!allMoves.isEmpty()) {
             move latestMove = allMoves.getLast();
 
-            if(latestMove.getResult().equals("undo")) {
+            if (latestMove.getResult().equals("undo")) {
                 if (latestMove.getRound() % 2 == 0) {
                     this.currentPlayer = 1;
                 } else {
                     this.currentPlayer = 2;
                 }
             }
-        // Rebuild stacks
-        rebuildStacks(allMoves);
+            // Rebuild stacks
+            rebuildStacks(allMoves);
 
-        System.out.println("Game loaded successfully! Continuing from round " + round_counter);
+            System.out.println("Game loaded successfully! Continuing from round " + round_counter);
 
-        String record_name= display_interactive.setup_recording(scanner);
-        // Continue the game
-        startGame(player_name, scanner, record_name, jungle_file_name,true);
-
+            String record_name = display_interactive.setup_recording(scanner);
+            // Continue the game
+            startGame(player_name, scanner, record_name, jungle_file_name, true);
+        }
     }
     private void rebuildStacks(List<move> moves) {
         this.tbc_stack.clear();
@@ -89,6 +89,7 @@ public class game_control {
             jungle_list.add(m);
         }
     }
+
 
     private display_jungle loadGameState(String filename) throws IOException, InterruptedException {
         game_file jungleManager = new game_file(filename, game_file.FileType.JUNGLE);
@@ -161,7 +162,8 @@ public class game_control {
             System.out.print("Which chess you want to move ? (enter 'help' for get help) ");
             chess_input = scanner.nextLine().trim();
 
-            if (process_input(chess_input,player_name,scanner,1,recorder) == 1){
+            int process_input_result = process_input(chess_input,player_name,scanner,1,recorder);
+            if (process_input_result == 1 || process_input_result == 3 ){
                 continue ;
             }
 
@@ -330,9 +332,14 @@ public class game_control {
             displayInteractive.display_game_status(game_map, player_name, currentPlayer);
             return 1;
         }
-        else if (input.equalsIgnoreCase("undo") && take_back_counter[currentPlayer-1] < 3){
-            handle_undo(player_name, game_map, tbc_stack, recorder);
-            return 1;
+        else if (input.equalsIgnoreCase("undo") ){
+            boolean undo_result =handle_undo(player_name, game_map, tbc_stack, recorder);
+            if (undo_result) {
+                return 1;
+            }
+            else {
+                return 3;
+            }
         }
         else if (input.equalsIgnoreCase("save")){
             ask_save_file(scanner,player_name, game_file.FileType.JUNGLE);
