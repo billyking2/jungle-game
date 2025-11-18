@@ -54,8 +54,7 @@ class display_jungleTest {
             gameFile.record_move(moves);
         }
 
-        display_replay.start_replay(record_file_name);
-
+        display_jungle.start_jungle(record_file_name);
 
     }
 
