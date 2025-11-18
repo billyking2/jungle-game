@@ -186,7 +186,7 @@ public class game_control {
                     int processed_input = process_input(move_input,player_name,scanner,2,recorder);
                     if (processed_input == 2) {
                         System.out.println("back to choose chess!");
-                        break chessSelection;
+                        continue chessSelection;
                     }
                     else if (processed_input == 1){
                         continue ;
