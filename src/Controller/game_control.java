@@ -108,7 +108,7 @@ public class game_control {
         if (record_name != null && !continue_record){
             recorder =  new game_file(player_name[0], player_name[1], record_name, game_file.FileType.RECORD, take_back_counter);
         }
-        else if(record_name!=null && continue_record && jungle_file_name !=null){
+        else if(record_name!=null && jungle_file_name !=null){
             recorder = game_file.create_record_from_jungle( jungle_file_name , record_name);
         }
 
