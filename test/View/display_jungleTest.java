@@ -7,6 +7,9 @@ import Model.move;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +38,6 @@ class display_jungleTest {
         moves_jungle.add(move2);
 
         my_display_jungle = new display_jungle(my_map, my_game_display,moves_jungle);
-
     }
 
     @Test
@@ -45,8 +47,8 @@ class display_jungleTest {
             display_replay.start_replay("testJungleFile");
         });
 
-        String record_file_name = "testJungleFile"+System.currentTimeMillis();
-        gameFile  = new game_file("a","b",record_file_name,
+        String jungle_file_name = "testJungleFile"+System.currentTimeMillis();
+        gameFile  = new game_file("a","b", jungle_file_name,
                 game_file.FileType.JUNGLE, new int[]{2, 3});
 
 
@@ -54,8 +56,11 @@ class display_jungleTest {
             gameFile.record_move(moves);
         }
 
-        display_jungle.start_jungle(record_file_name);
+        display_jungle.start_jungle(jungle_file_name);
 
+        //delete file
+        Path path = Paths.get("././jungle/" + jungle_file_name + ".jungle");
+        Files.deleteIfExists(path);
     }
 
 
