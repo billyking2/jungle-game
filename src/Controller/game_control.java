@@ -232,12 +232,12 @@ public class game_control {
     private boolean check_win_condition() {
         //player 1 go to den
         chess player1AtDen = game_map.getChess(8, 3);
-        if (player1AtDen != null && player1AtDen.getPlayer() == 1) {
+        if (player1AtDen != null) {
             return true;
         }
         // player 2 go to den
         chess player2AtDen = game_map.getChess(0, 3);
-        if (player2AtDen != null && player2AtDen.getPlayer() == 2) {
+        if (player2AtDen != null) {
             return true;
         }
         // player 1 no chess
