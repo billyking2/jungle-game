@@ -18,26 +18,45 @@ class display_jungleTest {
     private map my_map;
     private display_map my_game_display;
     private List<move> moves_jungle;
+    private game_file gameFile;
 
     @BeforeEach
     void setup(){
         my_map = new map();
         my_game_display = new display_map(my_map);
         moves_jungle = new ArrayList<move>();
-        chess chess1= new chess("1",1,1,1);
-        move move1 = new move();
-        move1.setRound(1);
-        move1.setMoved_chess(chess1);
+        // Create sample moves for testing
+        chess chess1 = new chess("wolf", 1, 2, 4);
+        move move1 = new move(chess1, null, 2, 4, 1, 4, 1, "tester1", "success");
         moves_jungle.add(move1);
 
+        chess chess2 = new chess("wolf", 2, 6, 2);
+        move move2 = new move(chess2, null, 6, 2, 7, 2, 2, "tester2", "success");
+        moves_jungle.add(move2);
 
-        my_display_jungle = new display_jungle(my_map,my_game_display,moves_jungle);
+        my_display_jungle = new display_jungle(my_map, my_game_display,moves_jungle);
+
     }
 
     @Test
     //test the continue function
     void start_jungle() throws IOException, InterruptedException, IOException{
-        display_jungle.start_jungle("testFile");
+        assertThrows(IOException.class, () -> {
+            display_replay.start_replay("testJungleFile");
+        });
+
+        String record_file_name = "testJungleFile"+System.currentTimeMillis();
+        gameFile  = new game_file("a","b",record_file_name,
+                game_file.FileType.JUNGLE, new int[]{2, 3});
+
+
+        for (move moves : moves_jungle ) {
+            gameFile.record_move(moves);
+        }
+
+        display_replay.start_replay(record_file_name);
+
+
     }
 
 
