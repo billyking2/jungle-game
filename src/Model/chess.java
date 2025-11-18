@@ -44,6 +44,10 @@ public class chess {
             System.out.println("your chess "+this.getType()+" success capture "+target_chess.getType());
             return true;
         }
+        if(getrank(this.getType()) == 8 && getrank(target_chess.getType())== 1){
+            System.out.println("error: Elephant can not capture rat");
+            return false;
+        }
         //check the rank
         if (getrank(this.getType()) >= getrank(target_chess.getType())) {
             System.out.println("your chess " + this.getType() + " success capture " + target_chess.getType());
