@@ -124,9 +124,8 @@ public class game_control {
             boolean move_made = processPlayerTurn(player_name, scanner, recorder );
 
 
-
+            // game exit
             if (!move_made) {
-                // Check if this was due to an exit request
                 System.out.println("Game ended by user.");
                 break;
             }
