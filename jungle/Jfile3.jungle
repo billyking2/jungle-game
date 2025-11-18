@@ -1,0 +1,8 @@
+Player1_name 1
+Player1_take_back_counter 0
+Player2_name 2
+Player2_take_back_counter 0
+Start
+Round 1, player 1, moved wolf, from 24, to 14, captured null, result success,
+Round 2, player 2, moved cat, from 71, to 81, captured null, result success,
+Round 3, player 1, moved wolf, from 14, to 24, captured null, result success,
