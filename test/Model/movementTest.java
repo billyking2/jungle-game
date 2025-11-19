@@ -218,9 +218,9 @@ class movementTest {
     @Test
     void check_jump_over_2() {
         // Test tiger vertical jump over river
-        chess tiger = new chess("tiger", 1, 5, 6);
-        gameMap.setChess(5, 6, tiger);
-        assertTrue(mover.check_jump_over(tiger, 5, 6, 4, 6));
+        chess tiger = new chess("tiger", 1, 2, 5);
+        gameMap.setChess(2, 5, tiger);
+        assertTrue(mover.check_jump_over(tiger, 2, 5, 3, 5));
     }
     @Test
     void check_jump_over_3() {
