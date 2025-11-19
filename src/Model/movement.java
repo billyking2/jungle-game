@@ -1,6 +1,6 @@
 package Model;
 
-public class movement {
+public class  movement {
         private map game_map;
 
         public movement(map gameMap) {
@@ -101,26 +101,30 @@ public class movement {
         // check lion and tiger can jump over the river
         public boolean check_jump_over(chess start_chess, int c_row, int c_col, int t_row, int t_col){
                 //jump hor
-                int end_location;
+                int end_location=0;
+
+                int direction;
+
                 if (c_row == t_row ){
+
                         //change the target location become other side of river
-                        if (c_col > t_col){
-                                end_location =  t_col-2;
+                        if(c_col < t_col){
+                                end_location=t_col+2;
+                                direction=1;
                         }
                         else {
-                                 end_location = t_col+2;
+                                end_location=t_col-2;
+                                direction=-1;
                         }
-                        System.out.println("end location "+end_location );
-                        int start_location= Math.min(c_col,end_location)+1;
                         chess target_chess = game_map.getChess(c_row, end_location);
 
                         //check there is a rat on any of the intervening water squares.
-                        while (start_location < end_location) {
-                                if (game_map.getChess(c_row, start_location ) != null) {
+                        while (t_col != end_location) {
+                                if (game_map.getChess(c_row, t_col ) != null) {
                                         System.out.println("there are a rat on the river");
                                         return false;
                                 }
-                                start_location=start_location+1;
+                                t_col=t_col+direction;
                         }
 
                         //check capture enemy pieces by such jumping moves.
@@ -141,22 +145,24 @@ public class movement {
 
                 //jump vert
                 else if(c_col == t_col ){
-                        if (c_row > t_row){
-                                end_location =  t_row-3;
+
+                        if (c_row < t_row){
+                                end_location=6;
+                                direction=1;
                         }
                         else {
-                                end_location = t_row+3;
+                                end_location=2;
+                                direction=-1;
                         }
-                        System.out.println("end location "+end_location );
-                        int start_location= Math.min(c_row,end_location)+1;
+
                         chess target_chess = game_map.getChess(end_location, t_col);
 
-                        while (start_location < end_location) {
-                                if (game_map.getChess(start_location, c_col) != null) {
+                        while (t_row != end_location) {
+                                if (game_map.getChess(t_row, c_col) != null) {
                                         System.out.println("there are a rat on the river");
                                         return false;
                                 }
-                                start_location=start_location+1;
+                                t_row=t_row+direction;
                         }
                         if (target_chess != null) {
                                 if (start_chess.capture(target_chess)){
