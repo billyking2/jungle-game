@@ -24,13 +24,20 @@ public class player_name {
                     break name_loop;
                 case "2":
                     playerNames[0] = random_name();
-                    playerNames[1] = random_name();
+                    do {
+                        playerNames[1] = random_name();
+                    } while (playerNames[0].compareTo(playerNames[1]) == 0); //regenerate a random name to achieve unique players' name
                     break name_loop;
                 case "3":
                     System.out.println("Please enter player 1 name");
                     playerNames[0] = scanner.nextLine().trim();
-                    System.out.println("Please enter player 2 name");
-                    playerNames[1] = scanner.nextLine().trim();
+                    do {
+                        System.out.println("Please enter player 2 name");
+                        playerNames[1] = scanner.nextLine().trim();
+                        if (playerNames[0].compareTo(playerNames[1]) == 0) {
+                            System.out.println("This player name is already taken. Please enter another.");
+                        }
+                    } while (playerNames[0].compareTo(playerNames[1]) == 0); //ask user to input another name to achieve unique players' name
                     break name_loop;
                 default:
                     System.out.println("Wrong input, enter again(1,2,3)");
