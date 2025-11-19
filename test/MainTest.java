@@ -45,4 +45,32 @@ class MainTest {
         }
     }
 
+    @Test
+    void main4() throws IOException{
+        String exit_jungle_file_name= "2\nnot_exit_jungle_file";
+        ByteArrayInputStream userKeyboard = new ByteArrayInputStream(exit_jungle_file_name.getBytes());
+        System.setIn(userKeyboard);
+        try {
+            Main.main(new String[]{});
+        } catch (NoSuchElementException e){
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    void main5() throws IOException{
+        String exit_jungle_file_name= "1\nsame_file";
+        ByteArrayInputStream userKeyboard = new ByteArrayInputStream(exit_jungle_file_name.getBytes());
+        System.setIn(userKeyboard);
+        try {
+            Main.main(new String[]{});
+        } catch (NoSuchElementException e){
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
