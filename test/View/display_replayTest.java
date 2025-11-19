@@ -3,7 +3,7 @@ package View;
 import Controller.game_file;
 import Model.chess;
 import Model.map;
-import Model.move;
+import Model.moveLog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,23 +18,23 @@ class display_replayTest {
     private display_replay myDisplayReplay;
     private display_map myDisplayMap;
     private map myMap;
-    private List<move> movesReplay;
+    private List<moveLog> movesReplay;
     private game_file gameFile;
 
     @BeforeEach
     void setup(){
         myMap = new map();
         myDisplayMap = new display_map(myMap);
-        movesReplay = new ArrayList<move>();
+        movesReplay = new ArrayList<moveLog>();
 
         // Create sample moves for testing
         chess chess1 = new chess("wolf", 1, 2, 4);
-        move move1 = new move(chess1, null, 2, 4, 1, 4, 1, "tester1", "success");
-        movesReplay.add(move1);
+        moveLog moveLog1 = new moveLog(chess1, null, 2, 4, 1, 4, 1, "tester1", "success");
+        movesReplay.add(moveLog1);
 
         chess chess2 = new chess("wolf", 2, 6, 2);
-        move move2 = new move(chess2, null, 6, 2, 7, 2, 2, "tester2", "success");
-        movesReplay.add(move2);
+        moveLog moveLog2 = new moveLog(chess2, null, 6, 2, 7, 2, 2, "tester2", "success");
+        movesReplay.add(moveLog2);
 
         myDisplayReplay = new display_replay(myMap, myDisplayMap);
     }
@@ -55,7 +55,7 @@ class display_replayTest {
                 game_file.FileType.RECORD, new int[]{2, 3});
 
 
-        for (move moves : movesReplay ) {
+        for (moveLog moves : movesReplay ) {
             gameFile.record_move(moves);
         }
 
@@ -74,8 +74,8 @@ class display_replayTest {
 
     @Test
     void display_record_line() {
-        move testMove = movesReplay.get(0);
-        String recordLine = myDisplayReplay.display_record_line(testMove);
+        moveLog testMoveLog = movesReplay.get(0);
+        String recordLine = myDisplayReplay.display_record_line(testMoveLog);
 
         assertNotNull(recordLine);
         assertTrue(recordLine.contains("Round 1"));

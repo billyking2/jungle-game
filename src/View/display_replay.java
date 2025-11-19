@@ -2,7 +2,7 @@ package View;
 
 import Controller.game_file;
 import Model.map;
-import Model.move;
+import Model.moveLog;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,7 +21,7 @@ public class display_replay {
     public static void start_replay(String filename) throws IOException, InterruptedException, IOException {
         //load all the move class form record file
         game_file jungleManager = new game_file(filename, game_file.FileType.RECORD);
-        List<move> moves_replay = jungleManager.get_moves();
+        List<moveLog> moves_replay = jungleManager.get_moves();
 
         map game_map = new map();
         display_map game_display = new display_map(game_map);
@@ -32,12 +32,12 @@ public class display_replay {
     }
 
 
-        public void replay_game(List<move> moves_replay) throws InterruptedException {
+        public void replay_game(List<moveLog> moves_replay) throws InterruptedException {
             System.out.println("=== Starting Game Replay ===");
             game_display.display_map();
 
 
-            for (move moves : moves_replay) {
+            for (moveLog moves : moves_replay) {
                 moves.setMoved_chess(game_map.getChess(moves.getFromRow(),moves.getFromCol()));
                 moves.setCaptured_chess(game_map.getChess(moves.getToRow(),moves.getToCol()));
 
@@ -54,7 +54,7 @@ public class display_replay {
             System.out.println("Display End");
         }
 
-        private void update_move(move moves) {
+        private void update_move(moveLog moves) {
             // Update the chess piece's internal coordinates
             if (moves.getMoved_chess() != null) {
                 moves.getMoved_chess().setRow(moves.getToRow());
@@ -66,7 +66,7 @@ public class display_replay {
         }
 
 
-        public String display_record_line (move moves) {
+        public String display_record_line (moveLog moves) {
             return String.format("Round %d, player %s, moved %s, from (%d,%d), to (%d,%d), captured %s, result %s",
                     moves.getRound(), moves.getPlayer_name(), moves.getMoved_chess().getType(), moves.getFromRow() + 1, moves.getFromCol() + 1, moves.getToRow() + 1, moves.getToCol() + 1, moves.getCaptured_chess(), moves.getResult());
 

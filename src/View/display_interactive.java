@@ -7,7 +7,7 @@ import java.util.*;
 public class display_interactive {
 
     public static void display_game_menu() {
-        System.out.println("=== Jungle Chess ===");
+        System.out.println("=== The Jungle Game ===");
         System.out.println("1: New Game");
         System.out.println("2: Continue");
         System.out.println("3: Replay");

@@ -1,6 +1,6 @@
 package Model;
 
-public class move {
+public class moveLog {
     private chess moved_chess;
     private chess captured_chess;
     private int fromRow, fromCol;
@@ -10,7 +10,7 @@ public class move {
     private String result;
 
     //update the map and chess for take back
-    public move undo(map game_map,String player_name,int round) {
+    public moveLog undo(map game_map, String player_name, int round) {
 
         game_map.setChess(toRow, toCol, null);
         game_map.setChess(fromRow, fromCol, moved_chess);
@@ -22,7 +22,7 @@ public class move {
             captured_chess.setRow(toRow);
             captured_chess.setColumn(toCol);
         }
-        return new move (moved_chess, captured_chess, toRow, toCol, fromRow, fromCol,round,player_name,"undo");
+        return new moveLog(moved_chess, captured_chess, toRow, toCol, fromRow, fromCol,round,player_name,"undo");
     }
 
     //return a String for record or jungle file
@@ -111,10 +111,10 @@ public class move {
         this.result = result;
     }
 
-    public move() {
+    public moveLog() {
     }
 
-    public move(chess moved_chess, chess captured_chess, int fromRow, int fromCol, int toRow, int toCol, int round, String player_name, String result) {
+    public moveLog(chess moved_chess, chess captured_chess, int fromRow, int fromCol, int toRow, int toCol, int round, String player_name, String result) {
         this.moved_chess = moved_chess;
         this.captured_chess = captured_chess;
         this.fromRow = fromRow;

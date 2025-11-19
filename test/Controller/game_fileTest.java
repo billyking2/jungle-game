@@ -1,11 +1,11 @@
 package Controller;
 
 import Model.chess;
-import Model.move;
+import Model.moveLog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import java.io.File;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
@@ -40,21 +40,21 @@ class game_fileTest {
 
 
         chess chess1= new chess("1",1,1,1);
-        move move1 = new move();
-        move1.setRound(1);
-        move1.setMoved_chess(chess1);
-        gameFile.record_move(move1);
+        moveLog moveLog1 = new moveLog();
+        moveLog1.setRound(1);
+        moveLog1.setMoved_chess(chess1);
+        gameFile.record_move(moveLog1);
 
         chess chess2 = new chess("2",2,2,2);
-        move move2 = new move();
-        move2.setRound(2);
-        move2.setMoved_chess(chess2);
-        gameFile.record_move(move2);
+        moveLog moveLog2 = new moveLog();
+        moveLog2.setRound(2);
+        moveLog2.setMoved_chess(chess2);
+        gameFile.record_move(moveLog2);
 
-        List<move> moves = gameFile.get_moves();
-        assertEquals(2, moves.size());
-        assertEquals(1, moves.get(0).getRound());
-        assertEquals(2, moves.get(1).getRound());
+        List<moveLog> moveLogs = gameFile.get_moves();
+        assertEquals(2, moveLogs.size());
+        assertEquals(1, moveLogs.get(0).getRound());
+        assertEquals(2, moveLogs.get(1).getRound());
 
 
     }
@@ -67,8 +67,8 @@ class game_fileTest {
                 game_file.FileType.JUNGLE, takeBackCounters);
 
         chess chess1 = new chess("rat", 1, 1, 1);
-        move move1 = new move(chess1,null,1,1,2,2,1,"tester","success");
-        gameFile.record_move(move1);
+        moveLog moveLog1 = new moveLog(chess1,null,1,1,2,2,1,"tester","success");
+        gameFile.record_move(moveLog1);
 
         // Create record from jungle
         game_file recordFile = game_file.create_record_from_jungle(File_name, File_name);
@@ -88,14 +88,14 @@ class game_fileTest {
 
 
         chess chess1 = new chess("rat", 1, 1, 1);
-        move move1 = new move(chess1, null, 1, 1, 2, 2, 1, "tester", "success");
-        gameFile.record_move(move1);
+        moveLog moveLog1 = new moveLog(chess1, null, 1, 1, 2, 2, 1, "tester", "success");
+        gameFile.record_move(moveLog1);
 
 
-        List<move> moves = gameFile.get_moves();
-        assertEquals(1, moves.size());
-        assertEquals(1, moves.get(0).getRound());
-        assertEquals("rat", moves.get(0).getMoved_chess().getType());
+        List<moveLog> moveLogs = gameFile.get_moves();
+        assertEquals(1, moveLogs.size());
+        assertEquals(1, moveLogs.get(0).getRound());
+        assertEquals("rat", moveLogs.get(0).getMoved_chess().getType());
 
     }
 
@@ -107,11 +107,11 @@ class game_fileTest {
 
 
         chess chess1 = new chess("rat", 1, 1, 1);
-        move move1 = new move(chess1, null, 1, 1, 2, 2, 1, "tester", "success");
-        gameFile.record_move(move1);
+        moveLog moveLog1 = new moveLog(chess1, null, 1, 1, 2, 2, 1, "tester", "success");
+        gameFile.record_move(moveLog1);
 
-        List<move> moves = gameFile.get_moves();
-        assertEquals("tester", moves.get(0).getPlayer_name());
+        List<moveLog> moveLogs = gameFile.get_moves();
+        assertEquals("tester", moveLogs.get(0).getPlayer_name());
 
     }
 
@@ -123,16 +123,16 @@ class game_fileTest {
 
 
         chess chess1 = new chess("rat", 1, 1, 1);
-        move move1 = new move(chess1, null, 1, 1, 2, 2, 1, "tester1", "success");
-        gameFile.record_move(move1);
+        moveLog moveLog1 = new moveLog(chess1, null, 1, 1, 2, 2, 1, "tester1", "success");
+        gameFile.record_move(moveLog1);
 
         chess chess2 = new chess("cat", 2, 2, 2);
-        move move2 = new move(chess1, null, 2, 2, 3, 3, 1, "tester2", "success");
-        gameFile.record_move(move2);
+        moveLog moveLog2 = new moveLog(chess1, null, 2, 2, 3, 3, 1, "tester2", "success");
+        gameFile.record_move(moveLog2);
 
 
-        List<move> moves = gameFile.get_moves();
-        assertEquals("tester2", moves.get(1).getPlayer_name());
+        List<moveLog> moveLogs = gameFile.get_moves();
+        assertEquals("tester2", moveLogs.get(1).getPlayer_name());
     }
 
     @Test

@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.move;
+import Model.moveLog;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ public class game_file {
         JUNGLE, RECORD
     }
 
-    private List<move> moves;
+    private List<moveLog> moveLogs;
     private String player1_name;
     private String player2_name;
     private File currentFile;
@@ -25,7 +25,7 @@ public class game_file {
                      FileType fileType, int[] takeBackCounters) throws IOException {
         this.player1_name = player1_name;
         this.player2_name = player2_name;
-        this.moves = new ArrayList<>();
+        this.moveLogs = new ArrayList<>();
         this.fileType = fileType;
         this.enabled = true;
         this.takeBackCounters = takeBackCounters;
@@ -85,19 +85,19 @@ public class game_file {
     }
 
     // call to write the move
-    public void record_move(move move) {
-        moves.add(move);
+    public void record_move(moveLog moveLog) {
+        moveLogs.add(moveLog);
         if (enabled) {
-            write_move_to_file(move);
+            write_move_to_file(moveLog);
         }
     }
 
     // write the move
-    private void write_move_to_file(move move) {
+    private void write_move_to_file(moveLog moveLog) {
         if (!enabled) return;
 
         try (PrintWriter writer = new PrintWriter(new FileWriter(currentFile, true))) {
-            writer.println(move.record_success());
+            writer.println(moveLog.record_success());
         } catch (IOException e) {
             System.out.println("Error writing move to " + fileType + " file: " + e.getMessage());
         }
@@ -114,7 +114,7 @@ public class game_file {
         }
 
         this.currentFile = file;
-        this.moves = load_moves(file);
+        this.moveLogs = load_moves(file);
 
         if (fileType == FileType.JUNGLE) {
             load_jungle_file(file);
@@ -124,25 +124,25 @@ public class game_file {
     }
 
     // load all the move
-    private List<move> load_moves(File file) throws IOException {
-        List<move> loadedMoves = new ArrayList<>();
+    private List<moveLog> load_moves(File file) throws IOException {
+        List<moveLog> loadedMoveLogs = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("Round")) {
-                    move move = read_line(line);
-                    loadedMoves.add(move);
+                    moveLog moveLog = read_line(line);
+                    loadedMoveLogs.add(moveLog);
                 }
             }
         }
-        return loadedMoves;
+        return loadedMoveLogs;
     }
 
     // read the data from special format
-    private move read_line(String line) {
+    private moveLog read_line(String line) {
         String[] key_words = {"Round", "player", "moved", "from", "to", "captured", "result"};
-        move moveObj = new move();
+        moveLog moveLogObj = new moveLog();
         int index_1 = 0;
 
         for (String keyword : key_words) {
@@ -157,26 +157,26 @@ public class game_file {
 
             switch (keyword) {
                 case "player":
-                    moveObj.setPlayer_name(value);
+                    moveLogObj.setPlayer_name(value);
                     break;
                 case "Round":
-                    moveObj.setRound(Integer.parseInt(value));
+                    moveLogObj.setRound(Integer.parseInt(value));
                     break;
                 case "from":
-                    moveObj.setFromRow(Integer.parseInt(value.substring(0, 1)));
-                    moveObj.setFromCol(Integer.parseInt(value.substring(1)));
+                    moveLogObj.setFromRow(Integer.parseInt(value.substring(0, 1)));
+                    moveLogObj.setFromCol(Integer.parseInt(value.substring(1)));
                     break;
                 case "to":
-                    moveObj.setToRow(Integer.parseInt(value.substring(0, 1)));
-                    moveObj.setToCol(Integer.parseInt(value.substring(1)));
+                    moveLogObj.setToRow(Integer.parseInt(value.substring(0, 1)));
+                    moveLogObj.setToCol(Integer.parseInt(value.substring(1)));
                     break;
                 case "result":
-                    moveObj.setResult(value);
+                    moveLogObj.setResult(value);
                     break;
             }
             index_1 = valueEnd + 1;
         }
-        return moveObj;
+        return moveLogObj;
     }
 
     // load the data of jungle file
@@ -229,7 +229,7 @@ public class game_file {
         );
 
         // copy move from jungle file
-        for (move m : jungleManager.get_moves()) {
+        for (moveLog m : jungleManager.get_moves()) {
             record_manager.record_move(m);
         }
 
@@ -237,7 +237,7 @@ public class game_file {
     }
 
 
-    public List<move> get_moves() { return moves; }
+    public List<moveLog> get_moves() { return moveLogs; }
     public String getPlayer1_name() { return player1_name; }
     public String getPlayer2_name() { return player2_name; }
     public int[] getTakeBackCounters() { return takeBackCounters; }

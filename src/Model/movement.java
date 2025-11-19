@@ -1,6 +1,4 @@
-package Controller;
-import Model.chess;
-import Model.map;
+package Model;
 
 public class movement {
         private map game_map;

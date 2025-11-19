@@ -2,7 +2,8 @@ package Controller;
 
 import Model.map;
 import Model.chess;
-import Model.move;
+import Model.moveLog;
+import Model.movement;
 import View.display_jungle;
 import View.display_map;
 import View.display_interactive;
@@ -18,9 +19,9 @@ public class game_control {
     private display_interactive displayInteractive;
     private int currentPlayer;
     private int[] take_back_counter;
-    private Stack<move> tbc_stack;
+    private Stack<moveLog> tbc_stack;
     private int round_counter;
-    private List<move> jungle_list;
+    private List<moveLog> jungle_list;
 
 
     public game_control() {
@@ -48,20 +49,20 @@ public class game_control {
         // Load other game state
         String[] player_name ={jungle_manager.getPlayer1_name(), jungle_manager.getPlayer2_name()};
         this.take_back_counter=jungle_manager.getTakeBackCounters();
-        List<move> allMoves = jungle_manager.get_moves();
+        List<moveLog> allMoveLogs = jungle_manager.get_moves();
 
-        if (!allMoves.isEmpty()) {
-            move latestMove = allMoves.getLast();
+        if (!allMoveLogs.isEmpty()) {
+            moveLog latestMoveLog = allMoveLogs.getLast();
 
-            if (latestMove.getResult().equals("undo")) {
-                if (latestMove.getRound() % 2 == 0) {
+            if (latestMoveLog.getResult().equals("undo")) {
+                if (latestMoveLog.getRound() % 2 == 0) {
                     this.currentPlayer = 1;
                 } else {
                     this.currentPlayer = 2;
                 }
             }
             // Rebuild stacks
-            rebuildStacks(allMoves);
+            rebuildStacks(allMoveLogs);
 
             System.out.println("Game loaded successfully! Continuing from round " + round_counter);
 
@@ -70,12 +71,12 @@ public class game_control {
             startGame(player_name, scanner, record_name, jungle_file_name, true);
         }
     }
-    private void rebuildStacks(List<move> moves) {
+    private void rebuildStacks(List<moveLog> moveLogs) {
         this.tbc_stack.clear();
         this.jungle_list.clear();
 
         // rebuild stacks from loaded moves
-        for (move m : moves) {
+        for (moveLog m : moveLogs) {
             // set the chess pieces using the current game board
             chess movedChess = this.game_map.getChess(m.getFromRow(), m.getFromCol());
             chess capturedChess = this.game_map.getChess(m.getToRow(), m.getToCol());
@@ -93,10 +94,10 @@ public class game_control {
 
     private display_jungle loadGameState(String filename) throws IOException, InterruptedException {
         game_file jungleManager = new game_file(filename, game_file.FileType.JUNGLE);
-        List<move> moves = jungleManager.get_moves();
+        List<moveLog> moveLogs = jungleManager.get_moves();
         map game_map = new map();
         display_map game_display = new display_map(game_map);
-        display_jungle jungleDisplay = new display_jungle(game_map, game_display, moves);
+        display_jungle jungleDisplay = new display_jungle(game_map, game_display, moveLogs);
 
         // This applies all the moves to reconstruct the board
         jungleDisplay.continue_game();
@@ -203,7 +204,7 @@ public class game_control {
 
                             move_made = true;
                             //record success movement
-                            move t_b_c = new move(c_chess, captured_chess, c_row, c_col, target_location[0], target_location[1],round_counter,player_name[currentPlayer-1],"success");
+                            moveLog t_b_c = new moveLog(c_chess, captured_chess, c_row, c_col, target_location[0], target_location[1],round_counter,player_name[currentPlayer-1],"success");
                             tbc_stack.push(t_b_c);
                             jungle_list.add(t_b_c);
                             if(recorder != null) {
@@ -260,7 +261,7 @@ public class game_control {
         return false;
     }
 
-    private boolean handle_undo(String[] playerNames, map game_map, Stack<move> tbc_stack, game_file recorders) {
+    private boolean handle_undo(String[] playerNames, map game_map, Stack<moveLog> tbc_stack, game_file recorders) {
         if (take_back_counter[currentPlayer-1] >= 3) {
             System.out.println("You have used all your chance to take back !");
             return false;
@@ -268,11 +269,11 @@ public class game_control {
 
         if (tbc_stack.size() >= 2) {
             //apply take back and update data of map and chess
-            move tbc=tbc_stack.pop();
-            move tbc_undo1=tbc.undo(game_map,playerNames[currentPlayer-1],round_counter);
+            moveLog tbc=tbc_stack.pop();
+            moveLog tbc_undo1=tbc.undo(game_map,playerNames[currentPlayer-1],round_counter);
 
             tbc=tbc_stack.pop();
-            move tbc_undo2=tbc.undo(game_map,playerNames[currentPlayer-1],round_counter);
+            moveLog tbc_undo2=tbc.undo(game_map,playerNames[currentPlayer-1],round_counter);
 
             //record take back
             if (recorders != null) {
@@ -309,7 +310,7 @@ public class game_control {
                 game_file jungle_file = new game_file(player_name[0], player_name[1], file_name, fileType, take_back_counter);
 
                 // write move to file
-                for (move m : jungle_list) {
+                for (moveLog m : jungle_list) {
                     jungle_file.record_move(m);
                 }
 
