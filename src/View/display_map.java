@@ -1,6 +1,7 @@
 package View;
-import Model.map;
+
 import Model.chess;
+import Model.map;
 
 public class display_map {
     public static final String RED = "\u001B[31m";

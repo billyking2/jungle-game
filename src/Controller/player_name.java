@@ -1,9 +1,9 @@
 package Controller;
 
-import java.nio.charset.StandardCharsets;
+import View.display_interactive;
+
 import java.util.Random;
 import java.util.Scanner;
-import View.display_interactive;
 
 public class player_name {
 

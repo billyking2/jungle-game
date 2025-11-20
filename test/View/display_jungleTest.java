@@ -6,6 +6,7 @@ import Model.map;
 import Model.moveLog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,8 +14,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class display_jungleTest {
     private display_jungle my_display_jungle;
@@ -42,7 +42,7 @@ class display_jungleTest {
 
     @Test
     //test the continue function
-    void start_jungle() throws IOException, InterruptedException, IOException{
+    void start_jungle() throws InterruptedException, IOException{
         assertThrows(IOException.class, () -> {
             display_replay.start_replay("testJungleFile");
         });

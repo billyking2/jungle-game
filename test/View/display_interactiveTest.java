@@ -2,11 +2,9 @@ package View;
 
 import Model.map;
 import org.junit.jupiter.api.Test;
-import java.io.ByteArrayInputStream;
-import java.util.Map;
-import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.io.ByteArrayInputStream;
+import java.util.Scanner;
 class display_interactiveTest {
 
     @Test
