@@ -8,6 +8,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +64,8 @@ class display_replayTest {
 
         display_replay.start_replay(record_file_name);
 
+        Path path = Paths.get("././record/" + record_file_name + ".record");
+        Files.deleteIfExists(path);
     }
 
     @Test

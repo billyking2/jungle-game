@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,7 +37,8 @@ class game_fileTest {
 
     @Test
     void record_move() throws IOException {
-        gameFile  = new game_file(player1Name, player2Name, getUniqueFileName(),
+        String uniqueFileName = getUniqueFileName();
+        gameFile  = new game_file(player1Name, player2Name, uniqueFileName,
                 game_file.FileType.JUNGLE, takeBackCounters);
 
 
@@ -56,7 +59,8 @@ class game_fileTest {
         assertEquals(1, moveLogs.get(0).getRound());
         assertEquals(2, moveLogs.get(1).getRound());
 
-
+        Path path = Paths.get("././jungle/" + uniqueFileName + ".jungle");
+        Files.deleteIfExists(path);
     }
 
 
@@ -78,6 +82,12 @@ class game_fileTest {
         assertArrayEquals(takeBackCounters, recordFile.getTakeBackCounters());
         assertEquals(game_file.FileType.RECORD, recordFile.getFileType());
         assertEquals(1, recordFile.get_moves().size());
+
+        Path path1 = Paths.get("././record/" + File_name + ".record");
+        Files.deleteIfExists(path1);
+
+        Path path2 = Paths.get("././jungle/" + File_name + ".jungle");
+        Files.deleteIfExists(path2);
     }
 
     @Test
@@ -97,6 +107,8 @@ class game_fileTest {
         assertEquals(1, moveLogs.get(0).getRound());
         assertEquals("rat", moveLogs.get(0).getMoved_chess().getType());
 
+        Path path = Paths.get("././jungle/" + fileName + ".jungle");
+        Files.deleteIfExists(path);
     }
 
     @Test
@@ -113,6 +125,8 @@ class game_fileTest {
         List<moveLog> moveLogs = gameFile.get_moves();
         assertEquals("tester", moveLogs.get(0).getPlayer_name());
 
+        Path path = Paths.get("././jungle/" + fileName + ".jungle");
+        Files.deleteIfExists(path);
     }
 
     @Test
@@ -133,6 +147,9 @@ class game_fileTest {
 
         List<moveLog> moveLogs = gameFile.get_moves();
         assertEquals("tester2", moveLogs.get(1).getPlayer_name());
+
+        Path path = Paths.get("././jungle/" + fileName + ".jungle");
+        Files.deleteIfExists(path);
     }
 
     @Test
@@ -145,6 +162,9 @@ class game_fileTest {
         assertArrayEquals(takeBackCounters, counters);
         assertEquals(2, counters[0]);
         assertEquals(3, counters[1]);
+
+        Path path = Paths.get("././jungle/" + fileName + ".jungle");
+        Files.deleteIfExists(path);
     }
 
 
@@ -156,5 +176,7 @@ class game_fileTest {
 
         assertEquals(game_file.FileType.JUNGLE, gameFile.getFileType());
 
+        Path path = Paths.get("././jungle/" + fileName + ".jungle");
+        Files.deleteIfExists(path);
     }
 }

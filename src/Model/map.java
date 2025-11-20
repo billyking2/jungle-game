@@ -12,6 +12,7 @@ public class map {
     private final int[][] Traps = { {0, 2}, {0, 4}, {1, 3}, {8, 2}, {8, 4}, {7, 3} };
     private final int[][] Rivers = { {3,1},{4,1},{5,1} , {3,2},{4,2},{5,2} , {3,4},{4,4},{5,4} , {3,5},{4,5},{5,5}};
 
+    // check location is dens
     public boolean check_Dens(int row, int columns){
         for(int[] den:Dens){
             if(den[0]==row && den[1]==columns){
@@ -20,7 +21,7 @@ public class map {
         }
         return false;
     }
-
+    // check location is traps
     public boolean check_Trap(int row, int columns) {
         for (int[] trap : Traps) {
             if (trap[0] == row && trap[1] == columns) {
@@ -29,7 +30,7 @@ public class map {
         }
         return false;
     }
-
+    //check location is river
     public boolean check_River(int row, int columns) {
         for (int[] river : Rivers) {
             if (river[0] == row && river[1] == columns) {
@@ -39,11 +40,13 @@ public class map {
         return false;
     }
 
+    // call to gen a new map
     public map(){
         Map= new chess[Rows][Columns];
         genMap();
     }
 
+    // initial the map with chess
     private void genMap(){
         for (int y = 0; y < Rows; y++) {
             for (int x = 0; x < Columns; x++) {
@@ -72,6 +75,7 @@ public class map {
 
     }
 
+    // base on location to get the chess
     public chess getChess(int rows, int columns) {
         if (check_boundary(rows, columns)) {
             return Map[rows][columns];
@@ -79,12 +83,14 @@ public class map {
         return null;
     }
 
+    // set the chess in location
     public void setChess(int rows, int columns, chess chess) {
         if (check_boundary(rows, columns)) {
             Map[rows][columns] = chess;
         }
     }
 
+    // search the chess base on name(type)
     public chess getChess_by_name(String name , int player){
         for (int y = 0; y < Rows; y++) {
             for (int x = 0; x < Columns; x++) {
@@ -114,7 +120,7 @@ public class map {
         return false;
     }
 
-
+    // check the location is boundary
     public boolean check_boundary(int rows, int columns) {
         return rows >= 0 && rows < Rows && columns >= 0 && columns < Columns;
     }

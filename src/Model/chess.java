@@ -8,7 +8,7 @@ public class chess {
     private Integer row;
     private Integer column;
 
-
+    // base on type to get the rank (rat =1 , cat=2 .......elephant =8)
     public Integer getrank(String type){
         switch (type.toLowerCase()){
             case ("elephant"):
@@ -44,12 +44,12 @@ public class chess {
             System.out.println("your chess "+this.getType()+" success capture "+target_chess.getType());
             return true;
         }
-        //Elephant cannot capture rat
+        //elephant cannot capture rat
         if(getrank(this.getType()) == 8 && getrank(target_chess.getType())== 1){
             System.out.println("error: Elephant can not capture rat");
             return false;
         }
-        //check the rank
+        //check the rank to see can capture
         if (getrank(this.getType()) >= getrank(target_chess.getType())) {
             System.out.println("your chess " + this.getType() + " success capture " + target_chess.getType());
             return true;

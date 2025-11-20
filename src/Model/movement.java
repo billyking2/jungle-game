@@ -102,12 +102,9 @@ public class  movement {
         public boolean check_jump_over(chess start_chess, int c_row, int c_col, int t_row, int t_col){
                 //jump hor
                 int end_location=0;
-
                 int direction;
-
                 if (c_row == t_row ){
-
-                        //change the target location become other side of river
+                        //change the target location become other side of river ( left or right)
                         if(c_col < t_col){
                                 end_location=t_col+2;
                                 direction=1;
@@ -117,7 +114,6 @@ public class  movement {
                                 direction=-1;
                         }
                         chess target_chess = game_map.getChess(c_row, end_location);
-
                         //check there is a rat on any of the intervening water squares.
                         while (t_col != end_location) {
                                 if (game_map.getChess(c_row, t_col ) != null) {
@@ -156,7 +152,7 @@ public class  movement {
                         }
 
                         chess target_chess = game_map.getChess(end_location, t_col);
-
+                        //check there is a rat on any of the intervening water squares.
                         while (t_row != end_location) {
                                 if (game_map.getChess(t_row, c_col) != null) {
                                         System.out.println("there are a rat on the river");
